@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0f0f11" id="meta-theme" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="icon" href="icons/icon-192.png" type="image/png" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ChordStar" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <title>ChordStar</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- OFFLINE BADGE -->
+  <div class="offline-badge" id="offline-badge" style="display:none"><span>● Offline</span></div>
+
+  <!-- HEADER -->
+  <header class="app-header" id="app-header">
+    <div class="header-inner">
+      <div class="header-left"><span class="logo-mark">♦</span><span class="logo-text">ChordStar</span></div>
+      <div class="header-right" id="header-actions">
+        <button class="icon-btn" id="btn-global-search" title="Search">🔍</button>
+        <button class="icon-btn" id="btn-notif" title="Notifications">🔔</button>
+        <button class="icon-btn" id="btn-theme" title="Toggle theme">☀️</button>
+        <button class="icon-btn" id="btn-import" title="Import">⬆</button>
+        <button class="icon-btn" id="btn-export" title="Export">⬇</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- SCREENS -->
+  <main class="screen-container">
+
+    <!-- ONBOARDING -->
+    <section class="screen" id="screen-onboarding"></section>
+
+    <!-- DASHBOARD -->
+    <section class="screen active" id="screen-dashboard">
+      <div class="screen-scroll">
+        <div class="screen-hero">
+          <p class="hero-greeting" id="greeting-text">Good morning</p>
+          <h1 class="hero-title">Your Studio</h1>
+        </div>
+        <div class="stats-grid" id="stats-grid"></div>
+
+        <!-- Sprint 4: Today's Classes -->
+        <div id="today-classes-section"></div>
+
+        <!-- Sprint 8: Goals due this month -->
+        <div id="dashboard-goals-section"></div>
+
+        <div class="section-header">
+          <h2 class="section-title">Quick Actions</h2>
+        </div>
+        <div class="quick-actions" id="quick-actions"></div>
+        <div class="section-header">
+          <h2 class="section-title">Pending Tasks</h2>
+          <span class="section-badge" id="pending-badge">0</span>
+        </div>
+        <div class="task-list" id="dashboard-tasks"></div>
+      </div>
+    </section>
+
+    <!-- STUDENTS -->
+    <section class="screen" id="screen-students">
+      <div class="screen-scroll">
+        <div class="screen-hero">
+          <h1 class="hero-title">Students</h1>
+          <p class="hero-sub" id="students-count-label">0 enrolled</p>
+        </div>
+        <div class="search-bar-wrap">
+          <input class="search-input" id="student-search" type="text" placeholder="🔍  Search students…" autocomplete="off" />
+          <div class="filter-chips" id="student-filter-chips">
+            <button class="chip active" data-filter="all">All</button>
+            <button class="chip" data-filter="active">Active</button>
+            <button class="chip" data-filter="inactive">Inactive</button>
+          </div>
+        </div>
+        <div class="student-list" id="student-list"></div>
+      </div>
+      <button class="fab" id="fab-add-student" aria-label="Add student">+</button>
+    </section>
+
+    <!-- TASKS -->
+    <section class="screen" id="screen-tasks">
+      <div class="screen-scroll">
+        <div class="screen-hero">
+          <h1 class="hero-title">All Tasks</h1>
+          <p class="hero-sub" id="tasks-count-label">0 pending</p>
+        </div>
+        <div class="search-bar-wrap" style="padding:0 16px 0">
+          <input class="search-input" id="task-search" type="text" placeholder="🔍  Search tasks or students…" autocomplete="off" />
+        </div>
+        <div class="filter-chips" id="tasks-filter-chips" style="padding:0 16px 12px">
+          <button class="chip active" data-tfilter="pending">Pending</button>
+          <button class="chip" data-tfilter="done">Done</button>
+          <button class="chip" data-tfilter="overdue">⚠ Overdue</button>
+          <button class="chip" data-tfilter="all">All</button>
+        </div>
+        <div class="task-list" id="all-tasks-list"></div>
+      </div>
+    </section>
+
+    <!-- STUDENT DETAIL -->
+    <section class="screen" id="screen-detail">
+      <div class="screen-scroll" id="detail-content"></div>
+    </section>
+
+    <!-- ANALYTICS (Sprint 6) -->
+    <section class="screen" id="screen-analytics"></section>
+
+    <!-- DAILY REGISTER (Sprint 8) -->
+    <section class="screen" id="screen-register"></section>
+
+  </main>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <button class="nav-btn active" data-screen="dashboard">
+      <span class="nav-icon">◈</span><span class="nav-label">Dashboard</span>
+    </button>
+    <button class="nav-btn" data-screen="students">
+      <span class="nav-icon">♟</span><span class="nav-label">Students</span>
+    </button>
+    <button class="nav-btn" data-screen="tasks">
+      <span class="nav-icon">📋</span><span class="nav-label">Tasks</span>
+      <span class="nav-dot" id="nav-tasks-dot"></span>
+    </button>
+    <button class="nav-btn" data-screen="analytics">
+      <span class="nav-icon">📊</span><span class="nav-label">Analytics</span>
+    </button>
+    <button class="nav-btn" data-screen="register">
+      <span class="nav-icon">📋</span><span class="nav-label">Register</span>
+    </button>
+  </nav>
+
+  <!-- GLOBAL SEARCH OVERLAY (Sprint 6) -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-overlay-box">
+      <div class="search-overlay-header">
+        <input class="search-overlay-input" id="global-search-input" type="text" placeholder="Search students, tasks…" autocomplete="off" />
+        <button class="search-overlay-close" id="search-overlay-close">✕</button>
+      </div>
+      <div class="search-overlay-results" id="global-search-results">
+        <div class="gs-hint">Search students, tasks…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Modal</h3>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/students.js"></script>
+  <script src="js/tasks.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
